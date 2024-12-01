@@ -19,49 +19,42 @@ Online video Link for a demo, including an audio description of the both codes a
 
 https://drive.google.com/file/d/1W_wnuB9EXqMyOHVNeis8IZC1i2oWAbV8/view?usp=sharing
 
+Video File Transfer via TCP (Client-Server Model)
+This assignemnt implements a client-server model using GNU C and TCP sockets for transferring video files. The sender (client) uses a GTK GUI for file selection and monitoring, while the receiver (server) saves the file.
 
+Architecture
 
+Sender (Client):
+Reads the video file in binary mode.
+Splits the file into fixed-size chunks (e.g., 1KB/4KB).
+Sends chunks to the server over a TCP connection.
+Signals end-of-transmission with a termination message (e.g., "EOF").
 
-
-Approach:
-This assignment implements a client-server model over TCP using sockets in GNU C. The objective is to transfer a video file from a sender (client) to a receiver (server). The sender uses GTK for a GUI to select the file and monitor progress, while the receiver saves the video in a designated file. Below is the revised approach.
-
-
-
-                                    Architecture and Workflow
-
-1. Sender (Client) Side
-•	Open and read the video file in binary mode.
-•	Split the video file into fixed-size segments (e.g., 1KB or 4KB chunks).
-•	Use a TCP socket to connect to the receiver (server).
-•	Transmit each segment one by one until the complete file is sent.
-•	Indicate the end of the transmission with a special marker or message (e.g., EOF).
-•	Close the socket once the video file is fully transmitted.
-2. Receiver (Server) Side
-•	Set up a TCP listening socket to accept incoming connections.
-•	Open a new video file to write the incoming data in binary mode.
-•	Receive the video in segments and write them to the newly created file.
-•	Monitor for the EOF indicator to detect the end of the file transmission.
-•	Close the file and socket after the file transfer is complete.
+Receiver (Server):
+Accepts incoming client connections.
+Saves received chunks to a new video file in binary mode.
+Monitors for the "EOF" marker to finalize the transfer.
 
 Steps to Implement
 
-Sender Side (Client)
-1.	Create a TCP socket using the socket() system call.
-2.	Connect to the server using connect().
-3.	Open the video file in binary mode using fopen().
-4.	Read the file in chunks using fread() inside a loop.
-5.	Transmit each chunk using the send() system call.
-6.	Send a termination message (e.g., EOF) to signal the end of the file transfer.
-7.	Close the file and socket after transmission is complete.
-Receiver Side (Server)
-1.	Create a listening socket using the socket() system call.
-2.	Bind the socket to a port using bind().
-3.	Use listen() to wait for incoming client connections.
-4.	Accept incoming connections using accept().
-5.	Open a new video file in binary mode using fopen() to store the received data.
-6.	Use recv() in a loop to receive data and write it to the file using fwrite().
-7.	Detect the EOF message to terminate the loop.
-8.	Close the file and socket after the transfer is complete.
-                                                                   
+Sender (Client):
+Create a TCP socket (socket()).
+Connect to the server (connect()).
+Open the video file (fopen() in binary mode).
+Read and send chunks (fread() + send()).
+Signal end-of-transmission ("EOF") and close the socket.
+
+Receiver (Server):
+Create a listening socket (socket() + bind() + listen()).
+Accept client connections (accept()).
+Open a new video file for writing (fopen() in binary mode).
+Receive and write chunks (recv() + fwrite()).
+Detect "EOF", close the file and socket.
+
+Technologies Used:
+GNU C for socket programming.
+GTK for GUI (on the client side).
+This structure ensures efficient, reliable video file transfer over a TCP connection.
+
+
 
