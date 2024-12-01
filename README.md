@@ -20,9 +20,6 @@ Online video Link for a demo, including an audio description of the both codes a
 https://drive.google.com/file/d/1W_wnuB9EXqMyOHVNeis8IZC1i2oWAbV8/view?usp=sharing
 
 
-Readme File Link:
-
-CN-assignment-2/README.md at main · mahmadr10/CN-assignment-2
 
 
 
